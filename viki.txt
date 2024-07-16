@@ -1,0 +1,94 @@
+-9652-32cdd146a91c',
+                'parameters': {'destination-place': {'originalValue': 'Central '
+                                                                      'Park',
+                                                     'resolvedValue': {'business-name': 'Central '
+                                                                                        'Park',
+                                                                       'original': 'Central '
+                                                                                   'Park'}}}},
+ 'languageCode': 'en',
+
+
+
+  "fulfillmentResponse": {
+                "messages": [
+                    {
+                        "text": {
+                            "text": [
+                                f"Oops! We couldn't find any activities for {destination} between {startDate} and  {endDate}."] 
+                        }
+                    },
+                    {
+                      "responseType": "RESPONSE_TYPE_UNSPECIFIED",
+                      "channel": "",
+
+                      #Union field message can be only one of the following:
+                      "payload": {
+                              "botcopy": [
+                                {
+                                  "suggestions": [
+                                    {
+                                      "action": {
+                                        "message": {
+                                          "command": "I want to change search details",
+                                          "type": "training"
+                                        }
+                                      },
+                                      "title": "Would you like to change search details?"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+
+                    }
+                ]
+            }
+        }
+    return noactivity
+  else:  
+    response={
+            "fulfillmentResponse": {
+                "messages": [
+                    {
+                      "responseType": "RESPONSE_TYPE_UNSPECIFIED",
+                      "channel": "",
+
+                      #Union field message can be only one of the following:
+                      "payload": {
+                          
+                            "botcopy": [
+                                        {
+                                          "carousel": [
+                                            {
+                                              "action": {
+                                                "message": {
+                                                  "type": "training",
+                                                  "command": "Get more details",
+                                                  "parameters": {
+                                                        "searchId":searchId,
+                                                        "activityCode": i["activityCode"],
+                                                        "duration": i['duration'],
+                                                        "activityName":i['activityName'],
+                                                        "activityimg":i['featureImage'],
+                                                        "activitydescription":i['description'],
+                                                        'activityprice':i['adultPrice']
+                                                      }
+                                                }
+                                              },
+                                              "body": f"{i['description'][:150]}....",
+                                              "image": {
+                                                "alt": "Image of activity",
+                                                "url": i['featureImage']
+                                              },
+                                              "subtitle": f"NGN {i['adultPrice']}",
+                                              "title": i['activityName']
+                                            } for i in activity_list
+                                          ]
+                                        }
+                                      ]
+                                    }
+                    }
+                ]
+            }
+        }
+    return response
